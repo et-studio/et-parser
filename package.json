@@ -1,0 +1,23 @@
+{
+  "name": "et-parser",
+  "version": "0.0.1",
+  "description": "A library to parse string.",
+  "main": "/es5/parser.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/et-studio/et-parser.git"
+  },
+  "keywords": [
+    "parser",
+    "machine"
+  ],
+  "author": "joooye1991@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/et-studio/et-parser/issues"
+  },
+  "homepage": "https://github.com/et-studio/et-parser#readme"
+}
