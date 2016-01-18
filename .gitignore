@@ -11,6 +11,7 @@
 *.iml
 .vscode
 .DS_Store
+.tmp
 
 logs
 tmp

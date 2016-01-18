@@ -5,7 +5,7 @@ node_js:
   - "4.0"
 
 before_script:
-  - "npm i -g typescript, babel-cli, mocha"
+  - "npm i -g typescript, babel-cli, mocha && npm run build"
 
 deploy:
   provider: npm

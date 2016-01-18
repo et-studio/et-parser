@@ -25,5 +25,5 @@ es5/test
 tsconfig.json
 tslint.json
 tsd.json
-
+typings
 

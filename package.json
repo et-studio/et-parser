@@ -1,12 +1,12 @@
 {
   "name": "et-parser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A library to parse string.",
-  "main": "/es5/parser.js",
+  "main": "/es5/src/parser.js",
   "scripts": {
     "start": "node test/server",
-    "build": "rm -rf es2015 && rm -rf es5 && tsc && babel es2015 -d es5",
-    "test": "npm run build && mocha es5/test/fuse"
+    "build": "rm -rf es2015 && rm -rf es5 && tsc && babel es2015/src -d es5/src",
+    "test": "npm run build && babel es2015 -d .tmp && mocha .tmp/test/fuse"
   },
   "repository": {
     "type": "git",
