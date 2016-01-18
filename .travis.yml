@@ -5,7 +5,7 @@ node_js:
   - "4.0"
 
 before_script:
-  - "npm install standard -g && npm install mocha -g && npm install gulp -g && gulp"
+  - "npm i -g typescript, babel-cli, mocha"
 
 deploy:
   provider: npm

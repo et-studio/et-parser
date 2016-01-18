@@ -1,4 +1,4 @@
-# et-parser
+# et-parser [![NPM version](https://img.shields.io/npm/v/et-parser.svg?style=flat-square)](https://www.npmjs.com/package/et-parser)
 
 ## Installation
 ```console
@@ -13,12 +13,12 @@ npm install et-parser --save-dev
 var Parser = require('et-parser')
 
 var table = `
-        | text       | emojiStart | emojiKey   | emojiEnd
-----    | ----       | ---------- | --------   | --------
-'['     | emojiStart | emojiStart | emojiStart | emojiStart
-']'     | text       | text       | emojiEnd   | text
-[\w.-_] | text       | emojiKey   | emojiKey   | text
-        | text       | text       | text       | text
+         | text       | emojiStart | emojiKey   | emojiEnd
+-------- | ----       | ---------- | --------   | --------
+'['      | emojiStart | emojiStart | emojiStart | emojiStart
+']'      | text       | text       | emojiEnd   | text
+[\\w\\.] | text       | emojiKey   | emojiKey   | text
+         | text       | text       | text       | text
 `
 
 var parser = new Parser(table)

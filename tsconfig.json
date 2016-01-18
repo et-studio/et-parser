@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2015",
     "module": "commonjs",
-    "outDir": "es5"
+    "outDir": "es2015"
   },
   "exclude": [
     "node_modules"

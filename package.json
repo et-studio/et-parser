@@ -4,7 +4,9 @@
   "description": "A library to parse string.",
   "main": "/es5/parser.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node test/server",
+    "build": "rm -rf es2015 && rm -rf es5 && tsc && babel es2015 -d es5",
+    "test": "npm run build && mocha es5/test/fuse"
   },
   "repository": {
     "type": "git",
@@ -19,5 +21,12 @@
   "bugs": {
     "url": "https://github.com/et-studio/et-parser/issues"
   },
-  "homepage": "https://github.com/et-studio/et-parser#readme"
+  "homepage": "https://github.com/et-studio/et-parser#readme",
+  "devDependencies": {
+    "express": "^4.13.3",
+    "should": "^8.1.1",
+    "systemjs": "^0.19.16",
+    "typescript": "^1.7.5"
+  },
+  "dependencies": {}
 }

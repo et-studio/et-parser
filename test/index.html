@@ -1,0 +1,47 @@
+<html>
+<head>
+  <title>SystemJS/TypeScript Sample</title>
+  <script src="node_modules/systemjs/dist/system.js"></script>
+</head>
+<body>
+  <script>
+    System.config({
+      transpiler: 'typescript',
+      meta: {
+        'typescript': {
+          format: 'global',
+          exports: 'ts'
+        }
+      },
+      paths: {
+        'src/*': '/src/*',
+        'typescript': '/node_modules/typescript/lib/typescript.js'
+      },
+      packages: {
+        'src': {
+          'defaultExtension': 'ts'
+        }
+      }
+    });
+
+    System.import('src/parser').then(function(im) {
+      var Parser = im.Parser;
+      var table = `
+                 | text       | emojiStart | emojiKey   | emojiEnd
+        ------   | ----       | ---------- | --------   | --------
+        '['      | emojiStart | emojiStart | emojiStart | emojiStart
+        ']'      | text       | text       | emojiEnd   | text
+        [\\w\\.] | text       | emojiKey   | emojiKey   | text
+                 | text       | text       | text       | text
+      `;
+      var parser = new Parser(table)
+      parser.parse('header[emoji.smile]tail', function (state, token, index) {
+        console.log(state, token, index)
+      })
+    });
+  </script>
+  <h1>ET compiler</h1>
+  <body style="padding: 20px 50px">
+  </body>
+</body>
+</html>
