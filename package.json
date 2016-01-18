@@ -5,7 +5,7 @@
   "main": "/es5/src/parser.js",
   "scripts": {
     "start": "node test/server",
-    "build": "tsc && babel es2015/src -d es5/src",
+    "build": "rm -rf es2015 && rm -rf es5 && tsc && babel es2015/src -d es5/src",
     "test": "npm run build && babel es2015 -d .tmp && mocha .tmp/test/fuse"
   },
   "repository": {
