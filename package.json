@@ -24,6 +24,7 @@
   "homepage": "https://github.com/et-studio/et-parser#readme",
   "devDependencies": {
     "express": "^4.13.3",
+    "mocha": "^2.3.4",
     "should": "^8.1.1",
     "systemjs": "^0.19.16",
     "typescript": "^1.7.5"
