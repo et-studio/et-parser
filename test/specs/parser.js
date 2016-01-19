@@ -1,7 +1,8 @@
+'use strict'
 
-import Parser from '../../src/parser';
+var Parser = require('../../es5/parser').Parser
 
-export function fire () {
+exports.fire = function () {
   describe('parser.parse', function () {
     it('emoji parse', function () {
       var table = `
@@ -12,10 +13,10 @@ export function fire () {
         [\\w\\.]   | text       | emojiKey   | emojiKey   | text
                    | text       | text       | text       | text
       `;
-      var parser = new Parser(table);
-      var results = [];
+      var parser = new Parser(table)
+      var results = []
       parser.parse('header[emoji.smile]tail', function (state, token, index) {
-        results.push([state, token, index]);
+        results.push([state, token, index])
       })
 
       let expects = [
@@ -42,9 +43,9 @@ export function fire () {
         ['text', 'a', 20],
         ['text', 'i', 21],
         ['text', 'l', 22]
-      ];
+      ]
 
-      results.should.be.eql(expects);
+      results.should.be.eql(expects)
     })
   })
 }

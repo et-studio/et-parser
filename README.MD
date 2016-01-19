@@ -10,7 +10,7 @@ npm install et-parser --save-dev
 
 ```javascript
 
-var Parser = require('et-parser')
+var Parser = require('et-parser').Parser
 
 var table = `
          | text       | emojiStart | emojiKey   | emojiEnd

@@ -2,7 +2,7 @@
 import {parseTable} from './helper';
 import {Machine} from './machine';
 
-export default class Parser extends Machine {
+export class Parser extends Machine {
   constructor (table: string, firstState?: string) {
     super();
     let set = parseTable(table);

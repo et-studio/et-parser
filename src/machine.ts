@@ -1,6 +1,6 @@
 
-const STATE_BACK_MARK = '_'
-const STATE_CHILD_REG = /^_/
+const STATE_BACK_MARK = '_';
+const STATE_CHILD_REG = /^_/;
 
 export class Machine {
   symbols: (string | RegExp)[] = [];
