@@ -18,7 +18,7 @@ logs
 node_modules
 test
 typings
-es2015
+src
 
 tsconfig.json
 tslint.json
