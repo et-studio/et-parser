@@ -5,6 +5,7 @@
   "main": "es5/src/parser.js",
   "scripts": {
     "start": "node test/server",
+    "setup": "tsd install",
     "build": "rm -rf es5 && tsc",
     "test": "mocha test/fuse"
   },
@@ -27,6 +28,7 @@
     "mocha": "^2.3.4",
     "should": "^8.1.1",
     "systemjs": "^0.19.16",
+    "tsd": "^0.6.5",
     "typescript": "^1.7.5"
   },
   "dependencies": {}
