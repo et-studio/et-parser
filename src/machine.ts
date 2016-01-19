@@ -16,6 +16,7 @@ export class Machine {
     for (let i = 0, len = source.length; i < len;) {
       let {token, symbol} = this.getToken(source, i)
       let {prevState, nextState} = this.switchState(symbol, currentState, stateStack);
+      if (prevState === null && nextState === null) break; // no matched state
 
       let fnState = callbackFn(prevState, token, i);
       if (fnState && typeof fnState === 'string') {
@@ -52,8 +53,10 @@ export class Machine {
   }
   switchState (symbol: string | RegExp, currentState: string, stateStack: string[]) {
     let map = this.table.get(symbol)
-    let {prevState, nextState} = map.get(currentState) || {prevState: '', nextState: ''};
+    let stateMap = map.get(currentState)
+    if (!stateMap) return {prevState: null, nextState: null};
 
+    let {prevState, nextState} =  stateMap;
     let isCurrentLoop = STATE_CHILD_REG.test(currentState)
     let isNextLoop = STATE_CHILD_REG.test(nextState)
     let isBackState = nextState === STATE_BACK_MARK

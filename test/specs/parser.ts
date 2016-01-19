@@ -1,5 +1,5 @@
 
-import {Parser} from '../../src/parser';
+import Parser from '../../src/parser';
 
 export function fire () {
   describe('parser.parse', function () {

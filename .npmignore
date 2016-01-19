@@ -11,19 +11,16 @@
 *.iml
 .DS_Store
 .travis.yml
-.*
+.tmp
 
 logs
-tmp
 
 node_modules
-src
 test
+typings
 es2015
-es5/test
 
 tsconfig.json
 tslint.json
 tsd.json
-typings
 
