@@ -27,17 +27,17 @@
     System.import('src/parser').then(function(im) {
       var Parser = im.Parser;
       var table = `
-                 | text       | emojiStart | emojiKey   | emojiEnd
-        ------   | ----       | ---------- | --------   | --------
-        '['      | emojiStart | emojiStart | emojiStart | emojiStart
-        ']'      | text       | text       | emojiEnd   | text
-        [\\w\\.] | text       | emojiKey   | emojiKey   | text
-                 | text       | text       | text       | text
+            | text  | _str1 | _str2
+        --- | ----  | ----- | -----
+        '   | _str1 | _     |
+        "   | _str2 |       | _
+        \\' |       |       |
+        \\" |       |       |
+            | text  |       |
       `;
       var parser = new Parser(table)
-      parser.parse('header[emoji.smile]tail', function (state, token, index) {
-        console.log(state, token, index)
-      })
+      console.log(parser)
+      console.log(parser.symbols)
     });
   </script>
   <h1>ET compiler</h1>

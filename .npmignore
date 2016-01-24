@@ -18,7 +18,6 @@ logs
 node_modules
 test
 typings
-src
 
 tsconfig.json
 tslint.json

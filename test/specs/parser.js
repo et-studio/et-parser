@@ -6,12 +6,12 @@ exports.fire = function () {
   describe('parser.parse', function () {
     it('emoji parse', function () {
       var table = `
-                   | text       | emojiStart | emojiKey   | emojiEnd
-        ---------- | ----       | ---------- | --------   | --------
-        '['        | emojiStart | emojiStart | emojiStart | emojiStart
-        ']'        | text       | text       | emojiEnd   | text
-        [\\w\\.]   | text       | emojiKey   | emojiKey   | text
-                   | text       | text       | text       | text
+                  | text       | emojiStart | emojiKey   | emojiEnd
+        --------- | ----       | ---------- | --------   | --------
+        [         | emojiStart | emojiStart | emojiStart | emojiStart
+        ]         | text       | text       | emojiEnd   | text
+        :[\\w\\.] | text       | emojiKey   | emojiKey   | text
+                  | text       | text       | text       | text
       `;
       var parser = new Parser(table)
       var results = []

@@ -2,7 +2,7 @@
 
 const express = require('express')
 const app = express()
-const port = 8001
+const port = 8002
 
 app.use('/node_modules', express.static('node_modules'))
 app.use('/src', express.static('src'))

@@ -13,12 +13,12 @@ npm install et-parser --save-dev
 var Parser = require('et-parser').Parser
 
 var table = `
-         | text       | emojiStart | emojiKey   | emojiEnd
--------- | ----       | ---------- | --------   | --------
-'['      | emojiStart | emojiStart | emojiStart | emojiStart
-']'      | text       | text       | emojiEnd   | text
-[\\w\\.] | text       | emojiKey   | emojiKey   | text
-         | text       | text       | text       | text
+          | text       | emojiStart | emojiKey   | emojiEnd
+--------  | ----       | ---------- | --------   | --------
+[         | emojiStart | emojiStart | emojiStart | emojiStart
+]         | text       | text       | emojiEnd   | text
+:[\\w\\.] | text       | emojiKey   | emojiKey   | text
+          | text       | text       | text       | text
 `
 
 var parser = new Parser(table)
