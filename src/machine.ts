@@ -1,7 +1,5 @@
 
-const STATE_BACK_MARK = '_';
-const STATE_CHILD_REG = /^_/;
-const IGNORE_TOKEN = ':::';
+import {STATE_BACK_MARK, STATE_CHILD_REG, IGNORE_TOKEN} from './configs';
 
 export class Machine {
   symbols: (string | RegExp)[] = [];
@@ -35,7 +33,7 @@ export class Machine {
   switchState (source: string, index: number, currentState: string) {
     let symbols = this.symbols;
     let char = source[index];
-    let token = char;
+    let token = '';
     let prevStateOut = '';
     let nextStateOut = '';
 
@@ -62,6 +60,19 @@ export class Machine {
         }
       }
     }
+
+    if (!token) {// no symbol matched, go into others
+      token = char;
+      let {prevState, nextState} = this.getState('', currentState);
+      if (nextState === IGNORE_TOKEN) {
+        prevStateOut = null;
+        nextStateOut = null;
+      } else {
+        prevStateOut = prevState;
+        nextStateOut = nextState;
+      }
+    }
+
     return {token, prevState: prevStateOut, nextState: nextStateOut}
   }
   chargeLoopState (currentState: string, prevState: string, nextState: string, stateStack: string[]) {

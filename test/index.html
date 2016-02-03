@@ -27,13 +27,13 @@
     System.import('src/parser').then(function(im) {
       var Parser = im.Parser;
       var table = `
-            | text  | _str1 | _str2
-        --- | ----  | ----- | -----
-        '   | _str1 | _     |
-        "   | _str2 |       | _
-        \\' |       |       |
-        \\" |       |       |
-            | text  |       |
+                             | ignore | item              | indexPre | index             | expression     | trackBy
+        -------------------- | ------ | ----              | -------- | --------          | ----------     | -------
+        :[\\s]               | ignore |                   |          |                   | expression     | trackBy
+        :[,;]                |        | ignore:indexPre   |          | index             | expression     | trackBy
+        &nbsp;in&nbsp;       | :::    | ignore:expression |          | ignore:expression | expression     | trackBy
+        &nbsp;track by&nbsp; |        |                   |          |                   | ignore:trackBy | trackBy
+                             | item   | item              | index    | index             | expression     | trackBy
       `;
       var parser = new Parser(table)
       console.log(parser)

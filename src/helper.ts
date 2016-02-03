@@ -1,8 +1,6 @@
 
 import {Machine} from './machine';
-
-const SPLIT_TOKEN = '|';
-const STATE_TOKEN = ':';
+import {SPLIT_TOKEN, STATE_TOKEN, REGEXP_TEST, IGNORE_TOKEN} from './configs';
 
 const ESCAPE_MAP = {
   '&amp;': '&',
@@ -22,8 +20,8 @@ function translateLine (line: string) {
   let origin = lineStates.shift();
   let symbol: string | RegExp;
 
-  if (origin.indexOf(STATE_TOKEN) === 0) {
-    origin = escape(origin.substr(1));
+  if (REGEXP_TEST.test(origin)) {
+    origin = escape(origin.replace(REGEXP_TEST, ''));
     symbol = new RegExp(origin);
   } else {
     symbol = escape(origin);
@@ -33,13 +31,13 @@ function translateLine (line: string) {
 
 function parseStateMap (state: string) {
   state = state.trim()
-  if (~state.indexOf(STATE_TOKEN)) {
+  if (state === IGNORE_TOKEN || !~state.indexOf(STATE_TOKEN)) {
+    return {prevState: state, nextState: state}
+  } else {
     let states = state.split(STATE_TOKEN);
     let prevState = (states[0] || '').trim();
     let nextState = (states[1] || '').trim();
-    return {prevState, nextState}
-  } else {
-    return {prevState: state, nextState: state}
+    return {prevState, nextState};
   }
 }
 
