@@ -1,6 +1,7 @@
 
 const STATE_BACK_MARK = '_';
 const STATE_CHILD_REG = /^_/;
+const IGNORE_TOKEN = ':::';
 
 export class Machine {
   symbols: (string | RegExp)[] = [];
@@ -14,9 +15,13 @@ export class Machine {
     let currentState: string = this.firstState;
     let stateStack: string[] = [];
     for (let i = 0, len = source.length; i < len;) {
-      let {token, symbol} = this.getToken(source, i)
-      let {prevState, nextState} = this.switchState(symbol, currentState, stateStack);
+      let {token, prevState, nextState} = this.switchState(source, i, currentState);
+      if (!token) break; // no matched token
       if (prevState === null && nextState === null) break; // no matched state
+
+      let set = this.chargeLoopState(currentState, prevState, nextState, stateStack);
+      prevState = set.prevState;
+      nextState = set.nextState;
 
       let fnState = callbackFn(prevState, token, i);
       if (fnState && typeof fnState === 'string') {
@@ -24,39 +29,42 @@ export class Machine {
       } else {
         currentState = nextState;
       }
-      i += token.length
+      i += token.length;
     }
   }
-  getToken (source: string, index: number) {
+  switchState (source: string, index: number, currentState: string) {
     let symbols = this.symbols;
     let char = source[index];
     let token = char;
-    let kick: string | RegExp = '';
+    let prevStateOut = '';
+    let nextStateOut = '';
 
     for (let i = 0, len = symbols.length; i < len; i++) {
       let symbol = symbols[i]
+      let {prevState, nextState} = this.getState(symbol, currentState);
+      if (nextState === IGNORE_TOKEN) {
+        continue;
+      }
       if (typeof symbol === 'string') {
         let tmp = source.substr(index, symbol.length);
         if (tmp === symbol) {
-          kick = token = symbol;
+          token = symbol;
+          prevStateOut = prevState;
+          nextStateOut = nextState;
           break;
         }
       } else {
         if (symbol.test(char)) {
           token = char;
-          kick = symbol;
+          prevStateOut = prevState;
+          nextStateOut = nextState;
           break;
         }
       }
     }
-    return {token, symbol: kick}
+    return {token, prevState: prevStateOut, nextState: nextStateOut}
   }
-  switchState (symbol: string | RegExp, currentState: string, stateStack: string[]) {
-    let map = this.table.get(symbol)
-    let stateMap = map.get(currentState)
-    if (!stateMap) return {prevState: null, nextState: null};
-
-    let {prevState, nextState} =  stateMap;
+  chargeLoopState (currentState: string, prevState: string, nextState: string, stateStack: string[]) {
     let isCurrentLoop = STATE_CHILD_REG.test(currentState)
     let isNextLoop = STATE_CHILD_REG.test(nextState)
     let isBackState = nextState === STATE_BACK_MARK
@@ -74,7 +82,12 @@ export class Machine {
     } else if (isBackState) {
       nextState = stateStack.pop() || ''
     }
-
     return {prevState, nextState}
+  }
+  getState (symbol: string | RegExp, currentState: string) {
+    let map = this.table.get(symbol)
+    let stateMap = map.get(currentState)
+    if (!stateMap) return {prevState: null, nextState: null};
+    else return stateMap;
   }
 }
