@@ -29,10 +29,10 @@ function translateLine (line: string) {
   return {symbol, lineStates}
 }
 
-function parseStateMap (state: string) {
+function parseStateSet (state: string) {
   state = state.trim()
   if (state === IGNORE_TOKEN || !~state.indexOf(STATE_TOKEN)) {
-    return {prevState: state, nextState: state}
+    return {prevState: '', nextState: state}
   } else {
     let states = state.split(STATE_TOKEN);
     let prevState = (states[0] || '').trim();
@@ -72,7 +72,7 @@ export function parseTable (source: string) {
     let {symbol, lineStates} = translateLine(line);
     let stateMap = new Map<string, {prevState: string, nextState: string}>();
     for (let j = 0, lenj = states.length; j < lenj; j++) {
-      stateMap.set(states[j], parseStateMap(lineStates[j] || ''));
+      stateMap.set(states[j], parseStateSet(lineStates[j] || ''));
     }
     if (symbol) {
       symbols.push(symbol);

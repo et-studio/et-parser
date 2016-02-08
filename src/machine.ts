@@ -80,19 +80,28 @@ export class Machine {
     let isNextLoop = STATE_CHILD_REG.test(nextState)
     let isBackState = nextState === STATE_BACK_MARK
 
-    if (!isBackState && isNextLoop) {
-      stateStack.push(currentState)
+    if (isCurrentLoop && isBackState) {// 跳出闭合状态
+      prevState = prevState || currentState;
+      nextState = stateStack.pop() || '';
+
+    } else if (!isBackState && isNextLoop) {//即将进入闭合状态
+      stateStack.push(prevState || currentState);
+
+      if (isCurrentLoop) {
+        prevState = prevState || currentState;
+      } else {
+        prevState = prevState || nextState;
+      }
+
+    } else if (isCurrentLoop) {//目前在闭合状态
+      prevState = prevState || currentState;
+      nextState = currentState;
+
+    } else {
+      prevState = prevState || nextState;
+
     }
 
-    if (!prevState || prevState === STATE_BACK_MARK) {
-      prevState = currentState
-    }
-
-    if (isCurrentLoop && !nextState) {
-      nextState = currentState
-    } else if (isBackState) {
-      nextState = stateStack.pop() || ''
-    }
     return {prevState, nextState}
   }
   getState (symbol: string | RegExp, currentState: string) {

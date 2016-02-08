@@ -142,5 +142,40 @@ exports.fire = function () {
 
       results.should.eql(expects)
     })
+
+    it('use prevState as lastState', function () {
+      var table = `
+                  | text            | expression | _str
+        --------- | ----            | ---------- | --------
+        '         | expression:_str | expression | _
+                  | text            | expression |
+      `;
+      var parser = new Parser(table)
+      var results = []
+      parser.parse("header'body'tail", function (state, token, index) {
+        results.push([state, token, index])
+      })
+
+      let expects = [
+        ['text', 'h', 0],
+        ['text', 'e', 1],
+        ['text', 'a', 2],
+        ['text', 'd', 3],
+        ['text', 'e', 4],
+        ['text', 'r', 5],
+        ['expression', '\'', 6],
+        ['_str', 'b', 7],
+        ['_str', 'o', 8],
+        ['_str', 'd', 9],
+        ['_str', 'y', 10],
+        ['_str', '\'', 11],
+        ['expression', 't', 12],
+        ['expression', 'a', 13],
+        ['expression', 'i', 14],
+        ['expression', 'l', 15]
+      ]
+
+      results.should.eql(expects)
+    })
   })
 }
