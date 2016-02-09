@@ -52,5 +52,25 @@ exports.fire = function () {
       set.table.should.eql(table)
 
     })
+
+    it('symbols sort', function () {
+      var set = helper.parseTable(`
+                         | text
+          -------------- | ------
+          [#if&nbsp;     | text
+          [#elseif&nbsp; | text
+          [#else         | text
+          ]              | text
+          [/#if]         | text
+          {{             | _str
+          }}             | text
+          '              | text
+          "              | text
+          \\'            | text
+          \\"            | text
+                         | text
+      `)
+      set.symbols.should.eql(['[#if ', '[#elseif ', ']', '[/#if]', '{{', '}}', '\'', '"', '\\\'', '\\"', '[#else'])
+    })
   })
 }

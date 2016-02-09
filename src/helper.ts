@@ -41,22 +41,50 @@ function parseStateSet (state: string) {
   }
 }
 
-function symbolSorter (left: string | RegExp, right: string | RegExp) {
-  // -1 表示left更靠前
-  let leftType = (typeof left === 'string') ? 0 : 1;
-  let rightType = (typeof right === 'string') ? 0 : 1;
-
-  if (leftType - rightType) {
-    return leftType - rightType
+function getWeight (symbol: string | RegExp, symbols: (string | RegExp)[]) {
+  if (typeof symbol === 'string') {
+    let weight = 0;
+    for (let i = 0, len = symbols.length; i < len; i++) {
+      let tmpSymbol = symbols[i];
+      if (typeof tmpSymbol === 'string' && tmpSymbol.indexOf(symbol) === 0) {
+        weight++;
+      }
+    }
+    return weight;
+  } else {
+    return 9999;
   }
+}
 
-  if (typeof left === 'string' && typeof right === 'string') {
-    if (left.indexOf(right) === 0) return -1
-    else if (right.indexOf(left) === 0) return 1
-    else return 0
+function pickSymbol (weights: number[], symbols: (string | RegExp)[]) {
+  let min = 10000;
+  let index = -1;
+
+  for (let i = 0, len = weights.length; i < len; i++) {
+    let w = weights[i];
+    if (0 <= w && w < min) {
+      min = w;
+      index = i;
+    }
   }
+  if (index >= 0) {
+    weights[index] = -1;
+    return symbols[index];
+  } else  {
+    return null;
+  }
+}
 
-  return 0;
+function sortSymbols (symbols: (string | RegExp)[]) {
+  let results: (string | RegExp)[] = [];
+  let weights: number[] = symbols.map(item => getWeight(item, symbols));
+
+  while (true) {
+    let symbol = pickSymbol(weights, symbols);
+    if (symbol === null) break;
+    else results.push(symbol);
+  }
+  return results;
 }
 
 export function parseTable (source: string) {
@@ -80,6 +108,6 @@ export function parseTable (source: string) {
     table.set(symbol, stateMap);
   }
 
-  return {symbols: symbols.sort(symbolSorter), states, table};
+  return {symbols: sortSymbols(symbols), states, table};
 }
 

@@ -25,23 +25,25 @@
     });
 
     System.import('src/parser').then(function(im) {
-      var Parser = im.Parser;
-      var table = `
-                             | ignore | item              | indexPre | index             | expression     | trackBy
-        -------------------- | ------ | ----              | -------- | --------          | ----------     | -------
-        :[\\s]               | ignore |                   |          |                   | expression     | trackBy
-        :[,;]                |        | ignore:indexPre   |          | index             | expression     | trackBy
-        &nbsp;in&nbsp;       | :::    | ignore:expression |          | ignore:expression | expression     | trackBy
-        &nbsp;track by&nbsp; |        |                   |          |                   | ignore:trackBy | trackBy
-                             | item   | item              | index    | index             | expression     | trackBy
-      `;
-      var parser = new Parser(table)
-      console.log(parser)
-      console.log(parser.symbols)
+      var $input = document.querySelector('#input')
+      var $btn = document.querySelector('#btn')
+
+      var oldInput = window.localStorage.getItem('input')
+      if (oldInput) $input.value = oldInput
+      $input.addEventListener('input', function (e) {
+        window.localStorage.setItem('input', e.target.value)
+      })
+
+      $btn.addEventListener('click', function () {
+        var table = $input.value
+        console.log(new im.Parser(table))
+      })
     });
   </script>
-  <h1>ET compiler</h1>
   <body style="padding: 20px 50px">
+    <textarea id="input" style="width: 100%; min-height: 220px;margin-bottom: 10px" placeholder="html to compile"></textarea>
+    <br>
+    <button id="btn" style="width: 100%; line-height: 30px;margin-bottom: 10px">编译</button>
   </body>
 </body>
 </html>
