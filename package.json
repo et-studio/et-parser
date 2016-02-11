@@ -1,6 +1,6 @@
 {
   "name": "et-parser",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A library to parse string.",
   "main": "es5/parser.js",
   "scripts": {
