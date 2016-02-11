@@ -28,6 +28,7 @@
     "should": "^8.1.1",
     "standard": "^6.0.4",
     "systemjs": "^0.19.16",
+    "tslint": "^3.3.0",
     "typescript": "^1.7.5"
   },
   "standard": {
