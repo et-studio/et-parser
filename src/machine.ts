@@ -12,7 +12,7 @@ export class Machine {
 
     let currentState: string = this.firstState;
     let stateStack: string[] = [];
-    for (let i = 0, len = source.length; i < len;) {
+    for (let i = 0, len = source.length; i < len; ) {
       let {token, prevState, nextState} = this.switchState(source, i, currentState);
       if (!token) break; // no matched token
       if (prevState === null && nextState === null) break; // no matched state
@@ -84,7 +84,7 @@ export class Machine {
       prevState = prevState || currentState;
       nextState = stateStack.pop() || '';
 
-    } else if (!isBackState && isNextLoop) {//即将进入闭合状态
+    } else if (!isBackState && isNextLoop) {// 即将进入闭合状态
       stateStack.push(prevState || currentState);
 
       if (isCurrentLoop) {
@@ -93,7 +93,7 @@ export class Machine {
         prevState = prevState || nextState;
       }
 
-    } else if (isCurrentLoop) {//目前在闭合状态
+    } else if (isCurrentLoop) {// 目前在闭合状态
       prevState = prevState || currentState;
       nextState = currentState;
 
@@ -107,7 +107,10 @@ export class Machine {
   getState (symbol: string | RegExp, currentState: string) {
     let map = this.table.get(symbol)
     let stateMap = map.get(currentState)
-    if (!stateMap) return {prevState: null, nextState: null};
-    else return stateMap;
+    if (!stateMap) {
+      return {prevState: null, nextState: null};
+    } else {
+      return stateMap;
+    }
   }
 }

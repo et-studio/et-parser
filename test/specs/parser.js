@@ -1,6 +1,8 @@
 'use strict'
 
 var Parser = require('../../es5/parser').Parser
+var describe = global.describe
+var it = global.it
 
 exports.fire = function () {
   describe('parser.parse', function () {
@@ -12,7 +14,7 @@ exports.fire = function () {
         ]         | text       | text       | emojiEnd   | text
         :[\\w\\.] | text       | emojiKey   | emojiKey   | text
                   | text       | text       | text       | text
-      `;
+      `
       var parser = new Parser(table)
       var results = []
       parser.parse('header[emoji.smile]tail', function (state, token, index) {
@@ -61,10 +63,10 @@ exports.fire = function () {
         {{     | keyStart:key | key        | keyStart:key | value{{       | value{{ | _str          | _str           | _str           |
         }}     | keyStart:key | key        | keyStart:key | value         | value   | value         | value'         | value"         | _
                | keyStart:key | key        | keyStart:key | value         | value{{ | value         | value'         | value"         |
-      `;
+      `
       var parser = new Parser(table)
       var results = []
-      parser.parse(`id=element class="title" value='123'`, function (state, token, index) {
+      parser.parse('id=element class="title" value=\'123\'', function (state, token, index) {
         results.push([state, token, index])
       })
 
@@ -119,10 +121,10 @@ exports.fire = function () {
         &nbsp;in&nbsp;       | :::    | ignore:expression |          | ignore:expression | expression     | trackBy
         &nbsp;track by&nbsp; |        |                   |          |                   | ignore:trackBy | trackBy
                              | item   | item              | index    | index             | expression     | trackBy
-      `;
+      `
       var parser = new Parser(table)
       var results = []
-      parser.parse(` in in it.list`, function (state, token, index) {
+      parser.parse(' in in it.list', function (state, token, index) {
         results.push([state, token, index])
       })
 
@@ -149,7 +151,7 @@ exports.fire = function () {
         --------- | ----            | ---------- | --------
         '         | expression:_str | expression | _
                   | text            | expression |
-      `;
+      `
       var parser = new Parser(table)
       var results = []
       parser.parse("header'body'tail", function (state, token, index) {

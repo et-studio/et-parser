@@ -13,8 +13,8 @@
       "check-space",
       "check-lowercase"
     ],
-    "curly": true,
-    "eofline": false,
+    "curly": false,
+    "eofline": true,
     "forin": true,
     "indent": [
       true,
@@ -28,16 +28,16 @@
       true,
       140
     ],
-    "member-access": true,
+    "member-access": false,
     "member-ordering": [
       true,
       "public-before-private",
       "static-before-instance",
       "variables-before-functions"
     ],
-    "no-any": false,
+    "no-any": true,
     "no-arg": true,
-    "no-bitwise": true,
+    "no-bitwise": false,
     "no-conditional-assignment": true,
     "no-consecutive-blank-lines": false,
     "no-console": [
@@ -55,10 +55,10 @@
     "no-duplicate-variable": true,
     "no-empty": true,
     "no-eval": true,
-    "no-inferrable-types": false,
+    "no-inferrable-types": true,
     "no-internal-module": true,
-    "no-null-keyword": true,
-    "no-require-imports": true,
+    "no-null-keyword": false,
+    "no-require-imports": false,
     "no-shadowed-variable": true,
     "no-string-literal": true,
     "no-switch-case-fall-through": true,
@@ -69,7 +69,7 @@
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "no-var-requires": true,
-    "object-literal-sort-keys": true,
+    "object-literal-sort-keys": false,
     "one-line": [
       true,
       "check-open-brace",
@@ -82,13 +82,13 @@
       "single",
       "avoid-escape"
     ],
-    "radix": true,
+    "radix": false,
     "semicolon": false,
-    "switch-default": true,
+    "switch-default": false,
     "trailing-comma": [
       true,
       {
-        "multiline": "always",
+        "multiline": "never",
         "singleline": "never"
       }
     ],
@@ -97,7 +97,7 @@
       "allow-null-check"
     ],
     "typedef": [
-      true,
+      false,
       "parameter",
       "property-declaration",
       "variable-declaration",
@@ -114,7 +114,7 @@
       }
     ],
     "use-strict": [
-      true,
+      false,
       "check-module",
       "check-function"
     ],

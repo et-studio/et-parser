@@ -5,9 +5,8 @@
   "main": "es5/parser.js",
   "scripts": {
     "start": "node test/server",
-    "setup": "tsd install",
     "build": "rm -rf es5 && tsc",
-    "test": "mocha test/fuse"
+    "test": "standard && tslint src/**/*.ts && mocha test/fuse"
   },
   "repository": {
     "type": "git",
@@ -27,9 +26,13 @@
     "express": "^4.13.3",
     "mocha": "^2.3.4",
     "should": "^8.1.1",
+    "standard": "^6.0.4",
     "systemjs": "^0.19.16",
-    "tsd": "^0.6.5",
     "typescript": "^1.7.5"
   },
-  "dependencies": {}
+  "standard": {
+    "ignore": [
+      "es5"
+    ]
+  }
 }

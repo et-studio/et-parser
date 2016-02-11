@@ -1,10 +1,11 @@
 'use strict'
 
 var helper = require('../../es5/helper')
+var describe = global.describe
+var it = global.it
 
 exports.fire = function () {
   describe('helper.parseTable', function () {
-
     it('quotation marks', function () {
       var set = helper.parseTable(`
              | text  | _str1 | _str2
@@ -50,7 +51,6 @@ exports.fire = function () {
       set.states.should.eql(['text', '_str1', '_str2'])
       set.symbols.should.eql(['\'', '"', '\\\'', '\\"'])
       set.table.should.eql(table)
-
     })
 
     it('symbols sort', function () {

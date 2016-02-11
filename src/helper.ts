@@ -1,5 +1,4 @@
 
-import {Machine} from './machine';
 import {SPLIT_TOKEN, STATE_TOKEN, REGEXP_TEST, IGNORE_TOKEN} from './configs';
 
 const ESCAPE_MAP = {
@@ -81,8 +80,11 @@ function sortSymbols (symbols: (string | RegExp)[]) {
 
   while (true) {
     let symbol = pickSymbol(weights, symbols);
-    if (symbol === null) break;
-    else results.push(symbol);
+    if (symbol === null) {
+      break;
+    } else {
+      results.push(symbol);
+    }
   }
   return results;
 }
