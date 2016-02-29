@@ -53,6 +53,55 @@ exports.fire = function () {
       set.table.should.eql(table)
     })
 
+    it('escape', function () {
+      var set = helper.parseTable(`
+                   | text
+        ---------- | ----
+        :[&break;] | reg-break
+        &amp;      | and
+        &line;     | line
+        &colon;    | colon
+        &break;    | break
+        &nbsp;     | space
+                   | text
+      `)
+
+      var reg = set.symbols[set.symbols.length - 1]
+      var table = new Map()
+      var regMap = new Map()
+      table.set(reg, regMap)
+      regMap.set('text', {prevState: '', nextState: 'reg-break'})
+
+      var andMap = new Map()
+      table.set('&', andMap)
+      andMap.set('text', {prevState: '', nextState: 'and'})
+
+      var lineMap = new Map()
+      table.set('|', lineMap)
+      lineMap.set('text', {prevState: '', nextState: 'line'})
+
+      var colonMap = new Map()
+      table.set(':', colonMap)
+      colonMap.set('text', {prevState: '', nextState: 'colon'})
+
+      var breakMap = new Map()
+      table.set('\n', breakMap)
+      breakMap.set('text', {prevState: '', nextState: 'break'})
+
+      var spaceMap = new Map()
+      table.set(' ', spaceMap)
+      spaceMap.set('text', {prevState: '', nextState: 'space'})
+
+      var endMap = new Map()
+      table.set('', endMap)
+      endMap.set('text', {prevState: '', nextState: 'text'})
+
+      reg.toString().should.eql('/[\n]/')
+      set.states.should.eql(['text'])
+      set.symbols.should.eql(['&', '|', ':', '\n', ' ', reg])
+      set.table.should.eql(table)
+    })
+
     it('symbols sort', function () {
       var set = helper.parseTable(`
                          | text

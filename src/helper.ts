@@ -5,6 +5,7 @@ const ESCAPE_MAP = {
   '&amp;': '&',
   '&line;': '|',
   '&colon;': ':',
+  '&break;': '\n',
   '&nbsp;': ' '
 }
 
